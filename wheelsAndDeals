@@ -276,7 +276,7 @@ public class wheelsAndDeals {
 
     // Insert Car
     public static void insertCar(Car car) throws SQLException {
-        String sql = "INSERT INTO cars (car_id, make, model, year, description, reserve_price, seller_id, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cars (car_id, company, model, year, description, reserve_price, seller_id, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -349,7 +349,7 @@ public class wheelsAndDeals {
             if (rs.next()) {
                 car = new Car(
                         rs.getInt("car_id"),
-                        rs.getString("make"),
+                        rs.getString("company"),
                         rs.getString("model"),
                         rs.getInt("year"),
                         rs.getString("description"),
@@ -366,7 +366,7 @@ public class wheelsAndDeals {
 
     // Update Car
     public static void updateCarInDatabase(Car car) throws SQLException {
-        String sql = "UPDATE cars SET make = ?, model = ?, year = ?, description = ?, reserve_price = ? WHERE car_id = ?";
+        String sql = "UPDATE cars SET company = ?, model = ?, year = ?, description = ?, reserve_price = ? WHERE car_id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -472,7 +472,7 @@ public class wheelsAndDeals {
             System.out.println("Available Cars:");
             while (rs.next()) {
                 System.out.println("Car ID: " + rs.getInt("car_id") +
-                        ", Make: " + rs.getString("make") +
+                        ", Company: " + rs.getString("company") +
                         ", Model: " + rs.getString("model") +
                         ", Year: " + rs.getInt("year") +
                         ", Description: " + rs.getString("description") +
@@ -639,7 +639,7 @@ public class wheelsAndDeals {
             while (rs.next()) {
                 Car car = new Car(
                         rs.getInt("car_id"),
-                        rs.getString("make"),
+                        rs.getString("company"),
                         rs.getString("model"),
                         rs.getInt("year"),
                         rs.getString("description"),
@@ -658,7 +658,7 @@ public class wheelsAndDeals {
         System.out.println("Enter car details:");
         int carId = getIntInput(scanner, "Car ID: ");
         scanner.nextLine(); // Consume newline
-        String make = getStringInput(scanner, "Make: ");
+        String company = getStringInput(scanner, "company: ");
         String model = getStringInput(scanner, "Model: ");
         int year = getIntInput(scanner, "Year: ");
         scanner.nextLine(); // Consume newline
@@ -666,7 +666,7 @@ public class wheelsAndDeals {
         double reservePrice = getDoubleInput(scanner, "Reserve Price: ");
         scanner.nextLine(); // Consume newline
 
-        return new Car(carId, make, model, year, description, reservePrice, sellerId);
+        return new Car(carId, company, model, year, description, reservePrice, sellerId);
     }
 
     public static void main(String[] args) throws SQLException {
@@ -974,8 +974,10 @@ public class wheelsAndDeals {
         }
 
         public void printList() {
+
             Node<T> current = head;
-            while (current != null) {
+            while (current != null)
+            {
                 System.out.print(current.data + " ");
                 current = current.next;
             }
