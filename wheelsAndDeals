@@ -1121,7 +1121,7 @@ public class wheelsAndDeals
         {
             if (head == null)
             {
-                return; // List is empty
+                return; 
             }
             head = head.next;
             size--;
@@ -1130,11 +1130,11 @@ public class wheelsAndDeals
         {
             if (head == null)
             {
-                return; // List is empty
+                return; 
             }
             if (head.next == null)
             {
-                head = null; // Only one element in the list
+                head = null; 
                 size--;
                 return;
             }
